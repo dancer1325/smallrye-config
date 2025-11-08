@@ -2,57 +2,58 @@
 :ci: https://github.com/smallrye/smallrye-config/actions/workflows/build.yml?query=branch%3Amain
 :sonar: https://sonarcloud.io/dashboard?id=io.smallrye.config%3Asmallrye-config
 
-image:https://github.com/smallrye/smallrye-config/actions/workflows/build.yml/badge.svg?branch=main[link={ci}]
-image:https://sonarcloud.io/api/project_badges/measure?project=io.smallrye.config%3Asmallrye-config&metric=alert_status["Quality Gate Status", link={sonar}]
-image:https://img.shields.io/github/license/smallrye/smallrye-config.svg["License", link="http://www.apache.org/licenses/LICENSE-2.0"]
-image:https://img.shields.io/maven-central/v/io.smallrye.config/smallrye-config?color=green["Maven", link="https://search.maven.org/search?q=g:io.smallrye.config%20AND%20a:smallrye-config"]
-
 = SmallRye Config
 
-*SmallRye Config* is a library that provides a way to configure applications, frameworks and containers. It is used
-in applications servers like https://wildfly.org/[WildFly], https://openliberty.io[Open Liberty] and
-https://tomee.apache.org[TomEE], or frameworks like https://quarkus.io[Quarkus]. It can also be used completely
-standalone in any Java application, which makes it a very flexible library.
-
-It follows the https://github.com/eclipse/microprofile-config/[MicroProfile Config] specification to provide
-the initial config foundations and expands with it own concepts to cover a wide range of use cases observed in the
-configuration space.
+* *SmallRye Config*
+    ** == 💡library💡 /
+        *** provides a way to configure
+            **** applications,
+            **** frameworks
+            **** containers
+        *** follows the https://github.com/eclipse/microprofile-config/[MicroProfile Config] specification
+    ** uses |
+        *** applications servers
+            **** _Examples:_ https://wildfly.org/[WildFly], https://openliberty.io[Open Liberty] and https://tomee.apache.org[TomEE]
+        *** frameworks
+            **** _Examples:_ https://quarkus.io[Quarkus]
+        *** Java application
 
 == Instructions
 
-Compile and test the project:
+* `mvn verify`
+    ** compile & test the project
 
-[source,bash]
-----
-mvn verify
-----
-
-Generate the documentation (from the `documentation` folder):
-
+* generate the documentation
++
 [source,bash]
 ----
 mvn package
 mkdocs serve
 ----
 
-=== Project structure
+== Project structure
 
-* link:cdi[] - CDI Extension
-* link:common[] - A set of reusable components to extend SmallRye Config
-* link:converters[] - Additional Converters
-* link:documentation[] - Project documentation
-* link:examples[] - Examples projects to demonstrate SmallRye Config features
-* link:implementation[] - Implementation of SmallRye Config
-* link:sources[] - Implementation of custom Config Sources
-* link:testsuite[] - Test suite to run the implementation against the MicroProfile Config TCK
-* link:utils[] - A set of additional extensions to enhance SmallRye Config
-* link:validator[] - Bean Validation integration
+* link:cdi[]
+    ** CDI Extension
+* link:common[]
+    ** == reusable components -- to -- extend SmallRye Config
+* link:documentation[]
+* link:examples[]
+* link:implementation[]
+* link:sources[]
+    ** implementation of custom Config Sources
+* link:testsuite[]
+    ** run the implementation -- against the -- MicroProfile Config TCK
+* link:utils[]
+    ** ADDITIONAL extensions -- to -- enhance SmallRye Config
+* link:validator[]
+    ** Bean Validation integration
 
-=== Contributing
+== Contributing
 
-Please refer to our Wiki for the https://github.com/smallrye/smallrye/[Contribution Guidelines].
+** https://github.com/smallrye/smallrye/[Contribution Guidelines]
 
-=== Links
+== Links
 
 * http://github.com/smallrye/smallrye-config/[Project Homepage]
 * {microprofile-config}[Eclipse MicroProfile Config]
