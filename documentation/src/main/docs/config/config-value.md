@@ -1,7 +1,8 @@
-# Config Value
+# Config Value -- `io.smallrye.config.ConfigValue` --
 
-The `io.smallrye.config.ConfigValue` is a metadata object that holds additional information after the lookup of a 
-configuration property. It is able to hold information of configuration property name, value, profile, the 
-`ConfigSource` from where the configuration was loaded, the ordinal of the `ConfigSource` and a line number from where 
-the configuration was loaded if exists.
-
+* == metadata object /
+  * AFTER lookup of a configuration property, 👀holds ADDITIONAL information👀 
+    * configuration property name, value, profile
+    * `ConfigSource` | configuration was loaded
+    * ordinal of the `ConfigSource`
+    * if configuration ALREADY exists -> line number | configuration was loaded

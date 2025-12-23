@@ -6,7 +6,7 @@
 
 * *SmallRye Config*
     ** == 💡library💡 /
-        *** provides a way to configure
+        *** enable you, to configure
             **** applications,
             **** frameworks
             **** containers

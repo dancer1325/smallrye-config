@@ -83,6 +83,7 @@
     <module>utils/crypto</module>
     <module>utils/jasypt</module>
     <module>documentation</module>
+    <module>examples/gettingStarted</module>
   </modules>
 
   <build>

@@ -1,0 +1,2 @@
+### list ALL Kubernetes configuration
+GET http://localhost:8080/configMap

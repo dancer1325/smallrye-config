@@ -2,16 +2,17 @@
 
 ## Custom `ConfigSource`
 
-It’s possible to create a custom ConfigSource as specified in 
-[MicroProfile Config](https://github.com/eclipse/microprofile-config/).
+* specified | [MicroProfile Config](https://github.com/eclipse/microprofile-config/)
 
 With a Custom `ConfigSource` it is possible to read additional configuration values and add them to the `Config` 
-instance in a defined ordinal. This allows overriding values from other sources or falling back to other values.
+instance in a defined ordinal
+This allows overriding values from other sources or falling back to other values.
 
 A custom `ConfigSource` requires an implementation of `org.eclipse.microprofile.config.spi.ConfigSource` or 
-`org.eclipse.microprofile.config.spi.ConfigSourceProvider`. Each implementation requires registration via the 
+`org.eclipse.microprofile.config.spi.ConfigSourceProvider`
+Each implementation requires registration via the 
 `ServiceLoader` mechanism, either in `META-INF/services/org.eclipse.microprofile.config.spi.ConfigSource` or 
-`META-INF/services/org.eclipse.microprofile.config.spi.ConfigSourceProvider` files.
+`META-INF/services/org.eclipse.microprofile.config.spi.ConfigSourceProvider` files
 
 Consider a simple in-memory ConfigSource:
 

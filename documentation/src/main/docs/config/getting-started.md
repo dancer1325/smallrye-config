@@ -1,86 +1,84 @@
 # Getting Started
 
-## Config Sources
+## ways to configure 
 
-By default, SmallRye Config reads configuration properties from multiple configuration sources (by descending ordinal):
+* default SmallRye Config configuration sources
+  1. (`400`) [System properties](#system-properties)
+  2. (`300`) [Environment variables](#environment-variables)
+  3. (`295`) `.env` file | current working directory
+  4. (`260`) `config/application.properties` | current working directory
+  5. (`250`) `application.properties` | classpath 
+  6. (`100`) [`META-INF/microprofile-config.properties` | classpath](#microprofile-config-configuration-file----meta-infmicroprofile-configproperties---)
+     * == MicroProfile Config configuration file
 
-1. (`400`) System properties
-2. (`300`) Environment variables
-3. (`295`) `.env` file in the current working directory
-4. (`260`) `application.properties` in `config` folder, located in the current working directory
-5. (`250`) `application.properties` in the classpath 
-6. (`100`) MicroProfile Config configuration file `META-INF/microprofile-config.properties` in the classpath
-
-A configuration source is handled by a `ConfigSource`. A `ConfigSource` provides configuration values from a specific
-place.  
-
-The final configuration is the aggregation of the properties defined by all these sources. A configuration property 
-lookup starts by the highest ordinal configuration source available and works it way down to other sources until a 
-match is found. This means that any configuration property may override a value just by setting a different value in a 
-higher ordinal config source. For example, a property configured using an Environment Variable overrides the value 
-provided using the `microprofile-config.properties` file.
+* ordinal of priority
+  * 👀higher -> MORE priority👀
 
 ### System Properties
 
-System properties can be handed to the application through the `-D` flag during startup. For instance, 
-`java -Dmy.prop -jar my.jar`.
+* if you want to pass to the application -> | startup, through the `-D` flag
+  * _Example:_ `java -Dmy.prop -jar my.jar`
 
 ### Environment Variables
 
-Environment variables are set directly in the host operating system. Environment variables names follow the conversion 
-rules detailed by [Environment Variables](environment-variables.md).
- 
-### MicroProfile Config configuration file
+* set | host operating system
+* follow the [conversion rules](environment-variables.md)
 
-The MicroProfile Config configuration file `META-INF/microprofile-config.properties` in the classpath. It follows the 
-standard convention for `properties` files.
+### MicroProfile Config configuration file -- `META-INF/microprofile-config.properties` --
 
-```properties title="META-INF/microprofile-config.properties"
-greeting.message=hello
-goodbye.message=bye
-```
+* located | classpath
+  * Reason:🧠they are under src/main/resource🧠
+* follows the `properties` files standard convention
 
 ### Additional Config Sources
 
-SmallRye Config provides additional extensions which cover other configuration formats and stores:
+* additional extensions / cover other configuration formats
+  - [YAML](../config-sources/yaml.md)
+  - [File System](../config-sources/filesystem.md)
+  - [ZooKeeper](../config-sources/zookeeper.md)
+  - [HOCON](../config-sources/hocon.md)
 
-- [YAML](../config-sources/yaml.md)
-- [File System](../config-sources/filesystem.md)
-- [ZooKeeper](../config-sources/zookeeper.md)
-- [HOCON](../config-sources/hocon.md)
+* [custom ConfigSource](../config-sources/custom.md)
 
-It is also possible to create a [Custom ConfigSource](../config-sources/custom.md).
+## [`ConfigSource`](https://github.com/microprofile/microprofile-config/blob/main/api/src/main/java/org/eclipse/microprofile/config/spi/ConfigSource.java)
 
-## Retrieving the Configuration
+* == specification's interface /
+  * implementations extend  
 
-### Programmatically
+* final configuration
+  * == aggregation of the properties / defined -- by -- ALL these sources
 
-The `org.eclipse.microprofile.config.ConfigProvider.getConfig()` API allows to access the 
-`org.eclipse.microprofile.config.Config` API programmatically.
+* configuration property
+  * ⚠️lookup starts -- by -- the highest ordinal configuration source available TILL match is found⚠️
+    * == if you set another value | higher ordinal config source -> value is override 
+    * _Example:_ property /
+      * configured by an Environment Variable overrides -- the -- configuration by  `microprofile-config.properties`
 
-```java
-Config config = ConfigProvider.getConfig();
+## how to retrieve the Configuration?
 
-String message = config.getValue("greeting.message", String.class);
-```
+### programmatically
 
-The `Config` instance will be created and registered to the current context class loader if no such configuration is 
-already created and registered. This means that subsequent calls to `ConfigProvider.getConfig()` will return the same 
-`Config` instance if the context class loader is the same.
+#### `org.eclipse.microprofile.config.ConfigProvider.getConfig()`
+* allows
+  * access the `org.eclipse.microprofile.config.Config` API programmatically
 
-To obtain a detached instanced, use the `io.smallrye.config.SmallRyeConfigBuilder`:
+* `Config` instance
+  * if NO configuration is created and registered -> created and registered | CURRENT context class loader
+    * if SAME context class loader -> subsequent calls to `ConfigProvider.getConfig()` return the same `Config` instance 
 
-```java
-SmallRyeConfig config = new SmallRyeConfigBuilder()
-    .addDefaultInterceptors()
-    .addDefaultSources()
-    .build();
+#### `io.smallrye.config.SmallRyeConfigBuilder`
+* uses
+  * detached instance
 
-String message = config.getValue("greeting.message", String.class);
-```
+### -- via -- CDI
 
-### With CDI
+* steps
+    ```
+    @Inject
+    @ConfigProperty 
+    ```
 
+* TODO:
 In a CDI environment, configuration can be injected in CDI aware beans with `@Inject` and 
 the `org.eclipse.microprofile.config.inject.ConfigProperty` qualifier.
 
@@ -107,7 +105,7 @@ SmallRyeConfig config;
 - The property `greeting.name` is optional - an empty Optional is injected if the configuration does not provide a 
 value for it.
 
-## Override Config
+## how to override?
 
 It is possible to override `Config` default initialization `ConfigProvider.getConfig()`, by extending 
 `io.smallrye.config.SmallRyeConfigFactory` and registering the implementation with the `ServiceLoader` mechanism.  
@@ -141,8 +139,8 @@ A few notable APIs provided by `io.smallrye.config.SmallRyeConfig` allow to:
 
 ## Converters
 
-The `ConfigSource` retrieves a configuration value as a `String`. Other data types require a conversion using the 
-`org.eclipse.microprofile.config.spi.Converter` API.
+The `ConfigSource` retrieves a configuration value as a `String`
+Other data types require a conversion using the  `org.eclipse.microprofile.config.spi.Converter` API.
 
 Most of the common `Converter` types are provided by default:
 

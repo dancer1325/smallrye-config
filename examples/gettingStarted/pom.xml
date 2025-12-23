@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.smallrye</groupId>
+        <artifactId>smallrye-parent</artifactId>
+        <version>47</version>
+        <relativePath />
+    </parent>
+
+    <groupId>io.smallrye.config.examples</groupId>
+    <artifactId>gettingStarted</artifactId>
+    <version>3.14.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>SmallRye Config Examples: gettingStarted</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.smallrye.testing>2.4.1</version.smallrye.testing>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.smallrye.testing</groupId>
+                <artifactId>smallrye-testing-bom</artifactId>
+                <version>${version.smallrye.testing}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.smallrye.config</groupId>
+            <artifactId>smallrye-config</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>io.smallrye.config.App</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
